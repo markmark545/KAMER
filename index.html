@@ -1,0 +1,920 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-equiv="X-Content-Type-Options" content="nosniff">
+<meta name="referrer" content="no-referrer">
+<title id="pageTitle">RyanDev. — Script Hub</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<link id="googleFont" href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+:root{--accent:#e63946;--accent-dim:#b02030;--accent-glow:rgba(230,57,70,.18);--dark:#090909;--dark2:#101010;--dark3:#181818;--card:#131313;--border:#242424;--text:#dedede;--muted:#5a5a5a;--font-body:'Syne',sans-serif;--font-mono:'JetBrains Mono',monospace}
+*{margin:0;padding:0;box-sizing:border-box;scroll-behavior:smooth}
+body{background:var(--dark);color:var(--text);font-family:var(--font-body);overflow-x:hidden;min-height:100vh}
+body.locked{overflow:hidden}
+::-webkit-scrollbar{width:5px}
+::-webkit-scrollbar-track{background:var(--dark2)}
+::-webkit-scrollbar-thumb{background:var(--accent);border-radius:4px}
+
+/* NAV */
+nav{position:fixed;top:0;inset-x:0;z-index:200;background:rgba(9,9,9,.93);backdrop-filter:blur(16px);border-bottom:1px solid var(--border)}
+.nav-inner{max-width:1200px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;padding:0 24px;height:62px}
+.logo{font-family:var(--font-mono);font-size:1.3rem;font-weight:700;color:var(--accent);letter-spacing:-1px;user-select:none}
+.logo em{color:var(--text);font-style:normal}
+.nav-links{display:flex;gap:28px}
+.nav-links a{font-size:.76rem;font-weight:700;color:var(--muted);text-decoration:none;letter-spacing:1.5px;text-transform:uppercase;transition:color .15s}
+.nav-links a:hover{color:var(--accent)}
+.btn-admin{font-family:var(--font-mono);font-size:.7rem;background:transparent;border:1px solid var(--accent);color:var(--accent);padding:6px 14px;cursor:pointer;transition:.2s;letter-spacing:.5px}
+.btn-admin:hover{background:var(--accent);color:#fff}
+.hamburger{display:none;flex-direction:column;gap:5px;cursor:pointer;padding:4px}
+.hamburger span{width:20px;height:2px;background:var(--text);transition:.3s;display:block}
+.mob-menu{display:none;position:fixed;top:62px;inset-x:0;background:var(--dark2);border-bottom:1px solid var(--border);z-index:190;padding:16px 24px;flex-direction:column}
+.mob-menu.open{display:flex}
+.mob-menu a{font-size:.88rem;font-weight:700;color:var(--muted);text-decoration:none;letter-spacing:1px;text-transform:uppercase;padding:11px 0;border-bottom:1px solid var(--border)}
+.mob-menu a:last-child{border:none}
+@media(max-width:720px){.nav-links{display:none}.hamburger{display:flex}}
+
+/* HERO */
+.hero{min-height:100vh;display:flex;align-items:center;padding:80px 24px 48px;position:relative;overflow:hidden}
+.hero::before{content:'';position:absolute;top:-200px;right:-160px;width:540px;height:540px;background:radial-gradient(circle,var(--accent-glow) 0%,transparent 70%);pointer-events:none}
+.hero::after{content:'';position:absolute;bottom:-80px;left:-100px;width:360px;height:360px;background:radial-gradient(circle,var(--accent-glow) 0%,transparent 70%);pointer-events:none}
+.hero-inner{max-width:1200px;margin:0 auto;width:100%;display:grid;grid-template-columns:1.1fr .9fr;gap:56px;align-items:center}
+.hero-tag{font-family:var(--font-mono);font-size:.68rem;color:var(--accent);letter-spacing:3px;text-transform:uppercase;margin-bottom:14px}
+.hero-title{font-size:clamp(2.2rem,5vw,4rem);font-weight:800;line-height:1.06;color:#fff}
+.hero-title .hi{color:var(--accent)}
+.hero-desc{margin-top:16px;color:var(--muted);font-size:.9rem;line-height:1.9}
+.hero-stats{display:flex;gap:14px;margin-top:28px;flex-wrap:wrap}
+.stat-box{background:var(--card);border:1px solid var(--border);padding:16px 22px;text-align:center;transition:border-color .2s;min-width:90px}
+.stat-box:hover{border-color:var(--accent)}
+.stat-num{font-family:var(--font-mono);font-size:1.6rem;font-weight:700;color:var(--accent)}
+.stat-label{font-size:.63rem;color:var(--muted);margin-top:3px;letter-spacing:.7px}
+.hero-btns{display:flex;gap:12px;margin-top:26px;flex-wrap:wrap}
+.btn-primary{background:var(--accent);color:#fff;padding:12px 26px;font-family:var(--font-body);font-size:.86rem;font-weight:700;border:none;cursor:pointer;transition:.2s;text-decoration:none;display:inline-flex;align-items:center;gap:7px}
+.btn-primary:hover{background:var(--accent-dim)}
+.btn-outline{background:transparent;color:var(--text);padding:12px 26px;font-family:var(--font-body);font-size:.86rem;font-weight:700;border:1px solid var(--border);cursor:pointer;transition:.2s;text-decoration:none}
+.btn-outline:hover{border-color:var(--text)}
+.hero-card{background:var(--card);border:1px solid var(--border)}
+.hc-hdr{background:var(--dark3);padding:9px 14px;display:flex;align-items:center;gap:6px;border-bottom:1px solid var(--border)}
+.dot{width:8px;height:8px;border-radius:50%}
+.dr{background:#e63946}.dy{background:#f4a261}.dg{background:#2a9d8f}
+.hc-fn{font-family:var(--font-mono);font-size:.62rem;color:var(--muted);margin-left:6px}
+.hc-body{padding:18px}
+.cl{font-family:var(--font-mono);font-size:.73rem;line-height:2}
+.cr{color:var(--accent)}.cy{color:#f4a261}.cg{color:#2a9d8f}.cm{color:var(--muted)}.cw{color:#dedede}
+.ch-links{margin-top:16px;display:flex;flex-direction:column;gap:8px}
+.ch-link{display:flex;align-items:center;gap:10px;background:var(--dark3);border:1px solid var(--border);padding:9px 13px;text-decoration:none;transition:.2s}
+.ch-link:hover{border-color:var(--accent);background:rgba(230,57,70,.04)}
+.ch-ico{width:30px;height:30px;display:flex;align-items:center;justify-content:center;font-size:.95rem}
+.ch-info{flex:1}
+.ch-name{font-size:.8rem;font-weight:700;color:var(--text)}
+.ch-subs{font-family:var(--font-mono);font-size:.6rem;color:var(--muted)}
+.ch-arr{color:var(--accent);font-size:.8rem}
+@media(max-width:720px){.hero-inner{grid-template-columns:1fr}.hero-visual{display:none}}
+
+/* SECTIONS */
+section{padding:72px 24px}
+.sec{max-width:1200px;margin:0 auto}
+.sec-tag{font-family:var(--font-mono);font-size:.62rem;color:var(--accent);letter-spacing:3px;text-transform:uppercase;margin-bottom:7px}
+.sec-title{font-size:1.9rem;font-weight:800;color:#fff}
+.sec-line{width:42px;height:3px;background:var(--accent);margin-top:9px;margin-bottom:38px}
+
+/* CARDS */
+.grid-4{display:grid;grid-template-columns:repeat(auto-fill,minmax(190px,1fr));gap:12px;margin-bottom:32px}
+.grid-3{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:16px}
+.cat-card{background:var(--card);border:1px solid var(--border);padding:20px;cursor:pointer;transition:.25s;position:relative;overflow:hidden}
+.cat-card::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:var(--accent);transform:scaleX(0);transform-origin:left;transition:.25s}
+.cat-card:hover::before,.cat-card.active::before{transform:scaleX(1)}
+.cat-card:hover{background:#161616}
+.cat-card.active{border-color:var(--accent);background:rgba(230,57,70,.04)}
+.cat-ico{font-size:1.5rem;margin-bottom:9px}
+.cat-name{font-size:.88rem;font-weight:700;color:#fff}
+.cat-count{font-family:var(--font-mono);font-size:.65rem;color:var(--accent);margin-top:2px}
+.sc-card{background:var(--card);border:1px solid var(--border);transition:.25s;cursor:pointer}
+.sc-card:hover{border-color:var(--accent);transform:translateY(-2px)}
+.sc-hdr{padding:16px 16px 9px;display:flex;justify-content:space-between;align-items:flex-start}
+.badge{font-family:var(--font-mono);font-size:.58rem;padding:2px 6px;border:1px solid;letter-spacing:.8px}
+.b-free{border-color:#2a9d8f;color:#2a9d8f}.b-hot{border-color:var(--accent);color:var(--accent)}.b-new{border-color:#f4a261;color:#f4a261}
+.sc-body{padding:0 16px 16px}
+.sc-name{font-size:.95rem;font-weight:700;color:#fff;margin-bottom:5px}
+.sc-desc{font-size:.76rem;color:var(--muted);line-height:1.6}
+.sc-foot{padding:9px 16px;border-top:1px solid var(--border);display:flex;justify-content:space-between;align-items:center}
+.sc-lang{font-family:var(--font-mono);font-size:.62rem;color:var(--muted)}
+.sc-views{font-family:var(--font-mono);font-size:.62rem;color:var(--accent)}
+
+/* MODALS */
+.ov{position:fixed;inset:0;background:rgba(0,0,0,.88);backdrop-filter:blur(5px);z-index:500;display:none;align-items:center;justify-content:center;padding:14px}
+.ov.open{display:flex}
+.modal{background:var(--dark2);border:1px solid var(--border);width:100%;max-width:740px;max-height:92vh;overflow-y:auto}
+.modal-hdr{padding:20px 24px 16px;border-bottom:1px solid var(--border);display:flex;justify-content:space-between;align-items:flex-start;position:sticky;top:0;background:var(--dark2);z-index:2}
+.modal-title{font-size:1.15rem;font-weight:800;color:#fff}
+.modal-sub{font-family:var(--font-mono);font-size:.62rem;color:var(--muted);margin-top:3px}
+.modal-x{background:none;border:none;color:var(--muted);font-size:1.2rem;cursor:pointer;transition:.2s;line-height:1;padding:0 2px}
+.modal-x:hover{color:var(--accent)}
+.modal-body{padding:22px 24px}
+.code-block{background:var(--dark3);border:1px solid var(--border);padding:16px;font-family:var(--font-mono);font-size:.72rem;line-height:1.85;color:#ccc;overflow-x:auto;position:relative;white-space:pre-wrap;word-break:break-word;margin:12px 0}
+.copy-btn{position:absolute;top:9px;right:9px;background:var(--accent);color:#fff;border:none;padding:4px 11px;font-family:var(--font-mono);font-size:.62rem;cursor:pointer;transition:.2s}
+.copy-btn:hover{background:var(--accent-dim)}
+.tag-list{display:flex;gap:6px;flex-wrap:wrap;margin-top:9px}
+.tag{font-family:var(--font-mono);font-size:.6rem;padding:2px 8px;border:1px solid var(--border);color:var(--muted)}
+
+/* ADMIN */
+.adm-modal{max-width:560px}
+.a-sec{margin-bottom:26px}
+.a-title{font-size:.65rem;letter-spacing:2px;text-transform:uppercase;color:var(--accent);font-family:var(--font-mono);margin-bottom:13px;border-bottom:1px solid var(--border);padding-bottom:7px}
+.fg{margin-bottom:11px}
+.fl{font-size:.7rem;color:var(--muted);font-family:var(--font-mono);margin-bottom:4px;display:block}
+.fi,.fta,.fsel{width:100%;background:var(--dark3);border:1px solid var(--border);color:var(--text);padding:8px 11px;font-family:var(--font-mono);font-size:.76rem;outline:none;transition:.2s}
+.fi:focus,.fta:focus,.fsel:focus{border-color:var(--accent)}
+.fta{resize:vertical}
+.fsel option{background:var(--dark3)}
+.frow{display:grid;grid-template-columns:1fr 1fr;gap:9px}
+@media(max-width:480px){.frow{grid-template-columns:1fr}}
+.btn-save{background:var(--accent);color:#fff;padding:9px 20px;font-family:var(--font-mono);font-size:.7rem;cursor:pointer;border:none;transition:.2s;letter-spacing:.4px}
+.btn-save:hover{background:var(--accent-dim)}
+.btn-del-sm{background:transparent;border:1px solid #b02030;color:#b02030;padding:7px 15px;font-family:var(--font-mono);font-size:.68rem;cursor:pointer;transition:.2s}
+.btn-del-sm:hover{background:#b02030;color:#fff}
+.list-adm{display:flex;flex-direction:column;gap:6px;max-height:200px;overflow-y:auto}
+.list-item{background:var(--dark3);border:1px solid var(--border);padding:8px 11px;display:flex;justify-content:space-between;align-items:center;gap:7px}
+.list-item-name{font-size:.76rem;color:var(--text);flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.list-item-acts{display:flex;gap:5px;flex-shrink:0}
+.ico-btn{background:none;border:none;cursor:pointer;font-size:.82rem;padding:2px 5px;transition:opacity .2s;opacity:.8}
+.ico-btn:hover{opacity:1}
+
+/* LOCK */
+.lock-wrap{display:flex;flex-direction:column;align-items:center;padding:34px 20px;text-align:center}
+.lock-ico{font-size:2.5rem;margin-bottom:13px}
+.lock-title{font-size:1.05rem;font-weight:800;color:#fff;margin-bottom:5px}
+.lock-desc{font-size:.78rem;color:var(--muted);margin-bottom:20px}
+.pin-row{display:flex;gap:9px;justify-content:center;margin-bottom:14px}
+.pin-i{width:44px;height:50px;text-align:center;font-size:1.3rem;font-family:var(--font-mono);background:var(--dark3);border:1px solid var(--border);color:#fff;outline:none;transition:.2s}
+.pin-i:focus{border-color:var(--accent)}
+.pin-err{color:var(--accent);font-size:.72rem;font-family:var(--font-mono);min-height:17px;text-align:center;margin-bottom:9px}
+
+/* THEME */
+.color-grid{display:grid;grid-template-columns:repeat(6,1fr);gap:7px;margin-bottom:9px}
+.cswatch{width:100%;aspect-ratio:1;border-radius:3px;cursor:pointer;border:2px solid transparent;transition:border-color .2s}
+.cswatch.sel,.cswatch:hover{border-color:#fff}
+.font-grid{display:grid;grid-template-columns:1fr 1fr;gap:7px}
+.font-btn{background:var(--dark3);border:1px solid var(--border);color:var(--text);padding:7px 9px;font-size:.76rem;cursor:pointer;transition:.2s;text-align:left}
+.font-btn.sel,.font-btn:hover{border-color:var(--accent);color:var(--accent)}
+
+/* CONFIRM */
+.confirm-box{background:var(--dark2);border:1px solid var(--border);padding:26px 22px;text-align:center;max-width:320px;width:100%}
+.confirm-msg{font-size:.88rem;color:var(--text);margin-bottom:18px;line-height:1.6}
+.confirm-btns{display:flex;gap:9px;justify-content:center}
+
+/* TOAST */
+.toast{position:fixed;bottom:20px;right:20px;background:var(--card);border:1px solid var(--accent);padding:11px 16px;font-family:var(--font-mono);font-size:.73rem;color:var(--text);z-index:9999;transform:translateY(56px);opacity:0;transition:.3s;pointer-events:none;max-width:280px}
+.toast.show{transform:translateY(0);opacity:1}
+
+@keyframes fadeUp{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:translateY(0)}}
+.fu{animation:fadeUp .5s ease forwards}
+.fu1{animation-delay:.08s;opacity:0}
+.fu2{animation-delay:.18s;opacity:0}
+.fu3{animation-delay:.28s;opacity:0}
+@keyframes blink{0%,100%{opacity:1}50%{opacity:0}}
+.cursor{display:inline-block;width:2px;height:.85em;background:var(--accent);vertical-align:middle;margin-left:1px;animation:blink 1s infinite}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-inner">
+    <div class="logo" id="logoEl">Ryan<em>.</em></div>
+    <div class="nav-links">
+      <a href="#home">Home</a>
+      <a href="#channels">Channel</a>
+      <a href="#scripts">Scripts</a>
+      <a href="#contact">Contact</a>
+    </div>
+    <div style="display:flex;gap:9px;align-items:center">
+      <button class="btn-admin" onclick="openAdmin()">⚙ Admin</button>
+      <div class="hamburger" id="hamBtn" onclick="toggleMenu()">
+        <span></span><span></span><span></span>
+      </div>
+    </div>
+  </div>
+</nav>
+<div class="mob-menu" id="mobMenu">
+  <a href="#home" onclick="closeMenu()">Home</a>
+  <a href="#channels" onclick="closeMenu()">Channel</a>
+  <a href="#scripts" onclick="closeMenu()">Scripts</a>
+  <a href="#contact" onclick="closeMenu()">Contact</a>
+</div>
+
+<!-- HERO -->
+<section id="home" class="hero">
+  <div class="hero-inner">
+    <div>
+      <div class="hero-tag fu">// Script Hub &amp; Dev Channel</div>
+      <h1 class="hero-title fu fu1">Hello I'm<br><span class="hi" id="heroName">Ryan<span class="cursor"></span></span></h1>
+      <p class="hero-desc fu fu2">แหล่งรวม Scripts &amp; Tools สำหรับนักพัฒนา<br>ฟรี อัพเดตสม่ำเสมอ พร้อมใช้งานได้เลย</p>
+      <div class="hero-stats fu fu2">
+        <div class="stat-box"><div class="stat-num" id="statScripts">0</div><div class="stat-label">Scripts</div></div>
+        <div class="stat-box"><div class="stat-num" id="statCats">0</div><div class="stat-label">Categories</div></div>
+        <div class="stat-box"><div class="stat-num">100%</div><div class="stat-label">Free</div></div>
+      </div>
+      <div class="hero-btns fu fu3">
+        <a href="#scripts" class="btn-primary">ดู Scripts ทั้งหมด →</a>
+        <a href="#channels" class="btn-outline">ช่องทางติดต่อ</a>
+      </div>
+    </div>
+    <div class="hero-visual fu fu2">
+      <div class="hero-card">
+        <div class="hc-hdr"><div class="dot dr"></div><div class="dot dy"></div><div class="dot dg"></div><span class="hc-fn">dev_profile.js</span></div>
+        <div class="hc-body">
+          <div class="cl"><span class="cr">const</span> <span class="cy">dev</span> <span class="cw">= {</span></div>
+          <div class="cl">&nbsp;&nbsp;<span class="cg">name</span><span class="cw">:</span> <span class="cy" id="codeNameEl">"Ryan"</span><span class="cw">,</span></div>
+          <div class="cl">&nbsp;&nbsp;<span class="cg">role</span><span class="cw">:</span> <span class="cy">"Script Dev"</span><span class="cw">,</span></div>
+          <div class="cl">&nbsp;&nbsp;<span class="cg">stack</span><span class="cw">: [</span><span class="cy">"JS"</span><span class="cw">,</span><span class="cy">"Python"</span><span class="cw">,</span><span class="cy">"Lua"</span><span class="cw">],</span></div>
+          <div class="cl">&nbsp;&nbsp;<span class="cg">scripts</span><span class="cw">:</span> <span class="cr" id="codeCount">0</span><span class="cw">,</span></div>
+          <div class="cl">&nbsp;&nbsp;<span class="cg">free</span><span class="cw">:</span> <span class="cr">true</span></div>
+          <div class="cl"><span class="cw">};</span></div>
+        </div>
+      </div>
+      <div class="ch-links" id="heroChLinks"></div>
+    </div>
+  </div>
+</section>
+
+<!-- CHANNELS -->
+<section id="channels" style="background:var(--dark2)">
+  <div class="sec">
+    <div class="sec-tag">// Channels</div>
+    <h2 class="sec-title">ช่องทางต่างๆ</h2>
+    <div class="sec-line"></div>
+    <div class="grid-4" id="channelGrid"></div>
+  </div>
+</section>
+
+<!-- SCRIPTS -->
+<section id="scripts">
+  <div class="sec">
+    <div class="sec-tag">// Free Scripts</div>
+    <h2 class="sec-title">Scripts แจกฟรี</h2>
+    <div class="sec-line"></div>
+    <div class="grid-4" id="catGrid"></div>
+    <div class="grid-3" id="scriptGrid"></div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact" style="background:var(--dark2)">
+  <div class="sec" style="max-width:540px">
+    <div class="sec-tag">// Contact</div>
+    <h2 class="sec-title">ติดต่อ</h2>
+    <div class="sec-line"></div>
+    <div id="contactEl" style="color:var(--muted);font-size:.9rem;line-height:2.2"></div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer style="background:var(--dark);border-top:1px solid var(--border);padding:20px;text-align:center">
+  <span style="font-family:var(--font-mono);font-size:.68rem;color:var(--muted)">© 2025 <span id="footerName">Ryan</span>. — Script Hub</span>
+</footer>
+
+<!-- SCRIPT MODAL -->
+<div class="ov" id="scriptModal">
+  <div class="modal">
+    <div class="modal-hdr">
+      <div><div class="modal-title" id="mTitle"></div><div class="modal-sub" id="mSub"></div></div>
+      <button class="modal-x" onclick="closeScriptModal()">✕</button>
+    </div>
+    <div class="modal-body">
+      <p style="color:var(--muted);font-size:.84rem;line-height:1.8;margin-bottom:10px" id="mDesc"></p>
+      <div class="tag-list" id="mTags"></div>
+      <div style="position:relative;margin-top:14px">
+        <div class="code-block" id="mCode"></div>
+        <button class="copy-btn" onclick="copyCode()">COPY</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ADMIN MODAL -->
+<div class="ov" id="adminModal">
+  <div class="modal adm-modal">
+    <div class="modal-hdr">
+      <div class="modal-title">⚙ Admin Panel</div>
+      <button class="modal-x" onclick="closeAdmin()">✕</button>
+    </div>
+    <div class="modal-body">
+      <!-- LOCK -->
+      <div id="adminLock" class="lock-wrap">
+        <div class="lock-ico">🔐</div>
+        <div class="lock-title">Admin Access</div>
+        <div class="lock-desc">กรอก PIN 4 หลักเพื่อเข้าสู่ระบบ</div>
+        <div class="pin-row">
+          <input type="password" maxlength="1" class="pin-i" id="p1" oninput="pinNav(this,'p2')" onkeydown="pinBack(event,this,null)">
+          <input type="password" maxlength="1" class="pin-i" id="p2" oninput="pinNav(this,'p3')" onkeydown="pinBack(event,this,'p1')">
+          <input type="password" maxlength="1" class="pin-i" id="p3" oninput="pinNav(this,'p4')" onkeydown="pinBack(event,this,'p2')">
+          <input type="password" maxlength="1" class="pin-i" id="p4" oninput="checkPin()" onkeydown="pinBack(event,this,'p3')">
+        </div>
+        <div class="pin-err" id="pinErr"></div>
+        <button class="btn-save" onclick="checkPin()">เข้าสู่ระบบ</button>
+      </div>
+      <!-- PANEL -->
+      <div id="adminPanel" style="display:none">
+
+        <!-- Add Script -->
+        <div class="a-sec">
+          <div class="a-title">➕ เพิ่ม Script</div>
+          <div class="frow">
+            <div class="fg"><label class="fl">ชื่อ Script *</label><input class="fi" id="ns_name" placeholder="Script Name"></div>
+            <div class="fg"><label class="fl">หมวดหมู่ *</label><select class="fsel" id="ns_cat"></select></div>
+          </div>
+          <div class="frow">
+            <div class="fg"><label class="fl">Badge</label>
+              <select class="fsel" id="ns_badge"><option value="free">FREE</option><option value="hot">HOT</option><option value="new">NEW</option></select>
+            </div>
+            <div class="fg"><label class="fl">ภาษา</label><input class="fi" id="ns_lang" placeholder="JavaScript"></div>
+          </div>
+          <div class="fg"><label class="fl">คำอธิบาย</label><input class="fi" id="ns_desc" placeholder="อธิบาย Script..."></div>
+          <div class="fg"><label class="fl">Tags (คั่น ,)</label><input class="fi" id="ns_tags" placeholder="js, bot, tool"></div>
+          <div class="fg"><label class="fl">Code *</label><textarea class="fta" id="ns_code" style="min-height:120px" placeholder="// โค้ดที่นี่..."></textarea></div>
+          <button class="btn-save" style="width:100%" onclick="adminAddScript()">เพิ่ม Script</button>
+        </div>
+
+        <!-- Manage Scripts -->
+        <div class="a-sec">
+          <div class="a-title">📋 จัดการ Scripts</div>
+          <div class="list-adm" id="adminScriptList"></div>
+        </div>
+
+        <!-- Manage Categories -->
+        <div class="a-sec">
+          <div class="a-title">🗂 จัดการหมวดหมู่</div>
+          <div class="frow" style="margin-bottom:9px">
+            <div class="fg"><label class="fl">ชื่อหมวดหมู่ *</label><input class="fi" id="nc_name" placeholder="JavaScript"></div>
+            <div class="fg"><label class="fl">Icon (emoji)</label><input class="fi" id="nc_icon" placeholder="⚡"></div>
+          </div>
+          <button class="btn-save" style="margin-bottom:11px" onclick="adminAddCat()">เพิ่มหมวดหมู่</button>
+          <div class="list-adm" id="adminCatList"></div>
+        </div>
+
+        <!-- Manage Channels -->
+        <div class="a-sec">
+          <div class="a-title">📡 จัดการ Channels</div>
+          <div class="frow" style="margin-bottom:8px">
+            <div class="fg"><label class="fl">ชื่อ Channel *</label><input class="fi" id="nch_name" placeholder="YouTube"></div>
+            <div class="fg"><label class="fl">Icon (emoji)</label><input class="fi" id="nch_icon" placeholder="▶️"></div>
+          </div>
+          <div class="frow" style="margin-bottom:9px">
+            <div class="fg"><label class="fl">URL</label><input class="fi" id="nch_url" placeholder="https://..."></div>
+            <div class="fg"><label class="fl">Followers</label><input class="fi" id="nch_subs" placeholder="1.2K"></div>
+          </div>
+          <button class="btn-save" style="margin-bottom:11px" onclick="adminAddChannel()">เพิ่ม Channel</button>
+          <div class="list-adm" id="adminChList"></div>
+        </div>
+
+        <!-- Appearance -->
+        <div class="a-sec">
+          <div class="a-title">🎨 ธีมสี &amp; ฟ้อนต์</div>
+          <label class="fl" style="margin-bottom:7px">เลือกสี Accent</label>
+          <div class="color-grid" id="colorGrid"></div>
+          <div class="frow" style="margin-top:9px;margin-bottom:14px">
+            <div class="fg"><label class="fl">สีกำหนดเอง (HEX)</label><input class="fi" id="customColor" placeholder="#e63946"></div>
+            <div class="fg" style="display:flex;align-items:flex-end"><button class="btn-save" style="width:100%" onclick="applyCustomColor()">ใช้สีนี้</button></div>
+          </div>
+          <label class="fl" style="margin-bottom:7px">เลือกฟ้อนต์</label>
+          <div class="font-grid" id="fontGrid"></div>
+        </div>
+
+        <!-- Site Settings -->
+        <div class="a-sec">
+          <div class="a-title">⚙ ตั้งค่าเว็บไซต์</div>
+          <div class="fg"><label class="fl">ชื่อเว็บ / ชื่อ Dev</label><input class="fi" id="cfg_siteName" placeholder="Ryan"></div>
+          <div class="fg"><label class="fl">ข้อมูลติดต่อ</label><textarea class="fta" id="cfg_contact" style="min-height:75px" placeholder="Email: ...&#10;Line: ..."></textarea></div>
+          <div class="fg"><label class="fl">เปลี่ยน PIN (4 หลัก)</label><input type="password" class="fi" id="cfg_pin" maxlength="4" placeholder="ใหม่ 4 หลัก"></div>
+          <button class="btn-save" onclick="adminSaveSettings()">บันทึกทั้งหมด</button>
+        </div>
+
+        <div style="text-align:center;margin-top:6px">
+          <button class="btn-del-sm" onclick="adminLogout()">ออกจากระบบ</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- EDIT SCRIPT MODAL -->
+<div class="ov" id="editModal">
+  <div class="modal adm-modal">
+    <div class="modal-hdr">
+      <div class="modal-title">✏️ แก้ไข Script</div>
+      <button class="modal-x" onclick="closeEdit()">✕</button>
+    </div>
+    <div class="modal-body">
+      <input type="hidden" id="edit_id">
+      <div class="frow">
+        <div class="fg"><label class="fl">ชื่อ Script</label><input class="fi" id="edit_name"></div>
+        <div class="fg"><label class="fl">หมวดหมู่</label><select class="fsel" id="edit_cat"></select></div>
+      </div>
+      <div class="frow">
+        <div class="fg"><label class="fl">Badge</label>
+          <select class="fsel" id="edit_badge"><option value="free">FREE</option><option value="hot">HOT</option><option value="new">NEW</option></select>
+        </div>
+        <div class="fg"><label class="fl">ภาษา</label><input class="fi" id="edit_lang"></div>
+      </div>
+      <div class="fg"><label class="fl">คำอธิบาย</label><input class="fi" id="edit_desc"></div>
+      <div class="fg"><label class="fl">Tags</label><input class="fi" id="edit_tags"></div>
+      <div class="fg"><label class="fl">Code</label><textarea class="fta" id="edit_code" style="min-height:130px"></textarea></div>
+      <button class="btn-save" style="width:100%" onclick="adminSaveEdit()">บันทึก</button>
+    </div>
+  </div>
+</div>
+
+<!-- CONFIRM -->
+<div class="ov" id="confirmOv">
+  <div class="confirm-box">
+    <div class="confirm-msg" id="confirmMsg"></div>
+    <div class="confirm-btns">
+      <button class="btn-del-sm" id="confirmOkBtn">ยืนยัน</button>
+      <button class="btn-outline" style="padding:7px 16px" onclick="closeConfirm()">ยกเลิก</button>
+    </div>
+  </div>
+</div>
+
+<!-- TOAST -->
+<div class="toast" id="toast"></div>
+
+<script>
+/* ─── SECURITY ─── */
+function esc(s){if(typeof s!=='string')s=String(s||'');return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;').replace(/'/g,'&#39;')}
+function sText(v,max=200){return String(v||'').trim().slice(0,max)}
+function sUrl(v){const s=String(v||'').trim().slice(0,500);if(!s||s==='#')return '#';if(/^https?:\/\//i.test(s))return s;return '#'}
+function isHex(v){return/^#[0-9a-fA-F]{6}$/.test(v)}
+function isPin(v){return/^\d{4}$/.test(v)}
+/* Rate limit PIN */
+const RL={a:0,lock:0};
+function rlOk(){return Date.now()>RL.lock}
+function rlFail(){RL.a++;if(RL.a>=5){RL.lock=Date.now()+60000;RL.a=0;return true}return false}
+function rlReset(){RL.a=0;RL.lock=0}
+
+/* ─── DB ─── */
+const DB_KEY='rdev_v3';
+const DEF={
+  pin:'1234',siteName:'Ryan',
+  contactInfo:'Email: ryan@example.com\nLine: @ryan_dev\nDiscord: ryan#0001',
+  accentColor:'#e63946',fontKey:'syne',
+  channels:[
+    {id:1,name:'YouTube',icon:'▶️',url:'#',subs:'1.2K'},
+    {id:2,name:'TikTok',icon:'🎵',url:'#',subs:'5.4K'},
+    {id:3,name:'GitHub',icon:'💻',url:'#',subs:'320'}
+  ],
+  categories:[
+    {id:1,name:'JavaScript',icon:'⚡'},
+    {id:2,name:'Python',icon:'🐍'},
+    {id:3,name:'Lua / Game',icon:'🎮'},
+    {id:4,name:'Automation',icon:'🤖'}
+  ],
+  scripts:[
+    {id:1,name:'Auto Click Bot',catId:1,badge:'hot',lang:'JavaScript',desc:'สคริปต์คลิกอัตโนมัติสำหรับเว็บบราวเซอร์ ใช้งานง่าย แค่รันใน Console',tags:['js','automation'],views:412,
+     code:'(function() {\n  let count = 0;\n  const iv = setInterval(() => {\n    document.elementFromPoint(\n      window.innerWidth / 2,\n      window.innerHeight / 2\n    ).click();\n    console.log("Clicked:", ++count);\n  }, 500);\n  window.stopBot = () => clearInterval(iv);\n  console.log("Started! call stopBot() to stop");\n})();'},
+    {id:2,name:'Password Generator',catId:1,badge:'free',lang:'JavaScript',desc:'สร้างรหัสผ่านแบบสุ่มที่แข็งแกร่ง กำหนดความยาวและตัวอักษรได้',tags:['js','security'],views:289,
+     code:'function genPwd(len=16, opts={}) {\n  const u = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";\n  const l = u.toLowerCase();\n  const n = "0123456789";\n  const s = "!@#$%^&*()";\n  let pool = l;\n  if (opts.upper !== false) pool += u;\n  if (opts.nums  !== false) pool += n;\n  if (opts.special) pool += s;\n  return Array.from({length:len}, () =>\n    pool[Math.random() * pool.length | 0]\n  ).join("");\n}\nconsole.log(genPwd(16, {special: true}));'},
+    {id:3,name:'File Rename',catId:2,badge:'new',lang:'Python',desc:'เปลี่ยนชื่อไฟล์จำนวนมากในโฟลเดอร์ด้วย Python รองรับ regex',tags:['python','files'],views:156,
+     code:'import os, re\n\ndef rename_files(folder, pattern, rep, dry=True):\n    for f in os.listdir(folder):\n        new = re.sub(pattern, rep, f)\n        if new != f:\n            src = os.path.join(folder, f)\n            dst = os.path.join(folder, new)\n            if dry:\n                print(f"[DRY] {f} -> {new}")\n            else:\n                os.rename(src, dst)\n\nrename_files("./folder", r"\\s+", "_", dry=True)'},
+    {id:4,name:'ESP Basic (Roblox)',catId:3,badge:'hot',lang:'Lua',desc:'สคริปต์ ESP พื้นฐานสำหรับเกม Roblox แสดงตำแหน่งผู้เล่น',tags:['lua','roblox','esp'],views:1240,
+     code:'local Players = game:GetService("Players")\nlocal cam     = workspace.CurrentCamera\nlocal LP      = Players.LocalPlayer\nlocal boxes   = {}\n\nlocal function mkBox(p)\n  local b = Drawing.new("Square")\n  b.Color = Color3.fromRGB(230,57,70)\n  b.Thickness = 1\n  b.Filled   = false\n  b.Visible  = false\n  boxes[p]   = b\nend\n\ngame:GetService("RunService").RenderStepped:Connect(function()\n  for _,p in pairs(Players:GetPlayers()) do\n    if p ~= LP and p.Character then\n      local hrp = p.Character:FindFirstChild("HumanoidRootPart")\n      if hrp and boxes[p] then\n        local pos, on = cam:WorldToViewportPoint(hrp.Position)\n        boxes[p].Visible = on\n        if on then\n          boxes[p].Size     = Vector2.new(40,60)\n          boxes[p].Position = Vector2.new(pos.X-20, pos.Y-30)\n        end\n      end\n    end\n  end\nend)\n\nPlayers.PlayerAdded:Connect(mkBox)\nprint("ESP loaded")'}
+  ]
+};
+
+function loadDB(){
+  try{
+    const r=localStorage.getItem(DB_KEY);
+    if(!r)return JSON.parse(JSON.stringify(DEF));
+    const d=JSON.parse(r);
+    if(typeof d!=='object'||!d||!isPin(d.pin)||!Array.isArray(d.scripts)||!Array.isArray(d.categories)||!Array.isArray(d.channels))
+      return JSON.parse(JSON.stringify(DEF));
+    if(!isHex(d.accentColor||''))d.accentColor='#e63946';
+    if(!d.fontKey)d.fontKey='syne';
+    return d;
+  }catch(e){return JSON.parse(JSON.stringify(DEF))}
+}
+function saveDB(){try{localStorage.setItem(DB_KEY,JSON.stringify(db))}catch(e){}}
+
+let db=loadDB();
+let curCat=null;
+let isAdmin=false;
+
+/* ─── THEME ─── */
+const PRESETS=['#e63946','#ff6b6b','#f4a261','#f1c40f','#06d6a0','#2a9d8f','#00b4d8','#457b9d','#7b2d8b','#a8dadc','#ff9f1c','#ffffff'];
+const FONTS=[
+  {key:'syne',    label:'Syne',          css:'Syne',            url:'family=Syne:wght@400;600;700;800'},
+  {key:'orbitron',label:'Orbitron',      css:'Orbitron',        url:'family=Orbitron:wght@400;700;900'},
+  {key:'exo',     label:'Exo 2',         css:'Exo 2',           url:'family=Exo+2:wght@400;600;700;800'},
+  {key:'saira',   label:'Saira Cond.',   css:'Saira Condensed', url:'family=Saira+Condensed:wght@400;600;700;900'},
+  {key:'rajdhani',label:'Rajdhani',      css:'Rajdhani',        url:'family=Rajdhani:wght@400;600;700'},
+  {key:'bebas',   label:'Bebas Neue',    css:'Bebas Neue',      url:'family=Bebas+Neue'},
+];
+
+function shade(hex,d){
+  let n=parseInt(hex.replace('#',''),16);
+  let r=Math.min(255,Math.max(0,((n>>16)&255)+d));
+  let g=Math.min(255,Math.max(0,((n>>8)&255)+d));
+  let b=Math.min(255,Math.max(0,(n&255)+d));
+  return '#'+((1<<24)|(r<<16)|(g<<8)|b).toString(16).slice(1);
+}
+function hexRgba(hex,a){const n=parseInt(hex.replace('#',''),16);return `rgba(${(n>>16)&255},${(n>>8)&255},${n&255},${a})`}
+
+function applyTheme(){
+  const root=document.documentElement.style;
+  root.setProperty('--accent',db.accentColor);
+  root.setProperty('--accent-dim',shade(db.accentColor,-28));
+  root.setProperty('--accent-glow',hexRgba(db.accentColor,.16));
+  const f=FONTS.find(x=>x.key===db.fontKey)||FONTS[0];
+  root.setProperty('--font-body',`'${f.css}',sans-serif`);
+  document.getElementById('googleFont').href=`https://fonts.googleapis.com/css2?${f.url}&family=JetBrains+Mono:wght@400;700&display=swap`;
+}
+
+/* ─── ID ─── */
+function nid(arr){return arr.length?Math.max(...arr.map(x=>x.id))+1:1}
+
+/* ─── RENDER ALL ─── */
+function renderAll(){
+  applyTheme();
+  rNav(); rHero(); rChannels(); rCats(); rScripts(); rContact();
+  if(isAdmin){rAdmScripts();rAdmCats();rAdmCh();popCatSel();syncForm();rColors();rFonts();}
+}
+
+function rNav(){
+  document.getElementById('logoEl').innerHTML=esc(db.siteName||'Ryan')+'<em>.</em>';
+  document.getElementById('footerName').textContent=db.siteName||'Ryan';
+  document.title=`${db.siteName||'Ryan'}. — Script Hub`;
+}
+
+function rHero(){
+  document.getElementById('statScripts').textContent=db.scripts.length+'+';
+  document.getElementById('statCats').textContent=db.categories.length;
+  document.getElementById('codeCount').textContent=db.scripts.length;
+  document.getElementById('codeNameEl').textContent=`"${db.siteName||'Ryan'}"`;
+  document.getElementById('heroName').innerHTML=esc(db.siteName||'Ryan')+'<span class="cursor"></span>';
+  document.getElementById('heroChLinks').innerHTML=db.channels.slice(0,3).map(c=>`
+    <a href="${esc(sUrl(c.url))}" class="ch-link" target="_blank" rel="noopener noreferrer">
+      <div class="ch-ico">${esc(c.icon)}</div>
+      <div class="ch-info"><div class="ch-name">${esc(c.name)}</div><div class="ch-subs">${esc(c.subs)}</div></div>
+      <div class="ch-arr">→</div>
+    </a>`).join('');
+}
+
+function rChannels(){
+  const g=document.getElementById('channelGrid');
+  if(!db.channels.length){g.innerHTML='<p style="color:var(--muted);font-family:var(--font-mono);font-size:.72rem">ยังไม่มี Channel</p>';return}
+  g.innerHTML=db.channels.map(c=>`
+    <a href="${esc(sUrl(c.url))}" class="cat-card" target="_blank" rel="noopener noreferrer" style="text-decoration:none">
+      <div class="cat-ico">${esc(c.icon)}</div>
+      <div class="cat-name">${esc(c.name)}</div>
+      <div class="cat-count">${esc(c.subs)} followers</div>
+    </a>`).join('');
+}
+
+function rCats(){
+  const g=document.getElementById('catGrid');
+  let h=`<div class="cat-card${curCat===null?' active':''}" onclick="filterCat(null)">
+    <div class="cat-ico">🗂</div>
+    <div class="cat-name">ทั้งหมด</div>
+    <div class="cat-count">${db.scripts.length} scripts</div>
+  </div>`;
+  h+=db.categories.map(c=>{
+    const cnt=db.scripts.filter(s=>s.catId===c.id).length;
+    return `<div class="cat-card${curCat===c.id?' active':''}" onclick="filterCat(${c.id})">
+      <div class="cat-ico">${esc(c.icon)}</div>
+      <div class="cat-name">${esc(c.name)}</div>
+      <div class="cat-count">${cnt} scripts</div>
+    </div>`;
+  }).join('');
+  g.innerHTML=h;
+}
+
+function filterCat(id){curCat=id;rCats();rScripts()}
+
+function rScripts(){
+  const g=document.getElementById('scriptGrid');
+  const list=curCat===null?db.scripts:db.scripts.filter(s=>s.catId===curCat);
+  if(!list.length){g.innerHTML='<p style="color:var(--muted);font-family:var(--font-mono);font-size:.72rem;grid-column:1/-1">ยังไม่มี Scripts</p>';return}
+  const BADGES=['free','hot','new'];
+  g.innerHTML=list.map(s=>{
+    const cat=db.categories.find(c=>c.id===s.catId);
+    const badge=BADGES.includes(s.badge)?s.badge:'free';
+    return `<div class="sc-card" onclick="openScript(${s.id})">
+      <div class="sc-hdr">
+        <span class="badge b-${badge}">${badge.toUpperCase()}</span>
+        <span style="font-size:1.15rem">${cat?esc(cat.icon):'📄'}</span>
+      </div>
+      <div class="sc-body">
+        <div class="sc-name">${esc(s.name)}</div>
+        <div class="sc-desc">${esc(s.desc||'')}</div>
+      </div>
+      <div class="sc-foot">
+        <span class="sc-lang">${esc(s.lang||'')}</span>
+        <span class="sc-views">👁 ${s.views||0}</span>
+      </div>
+    </div>`;
+  }).join('');
+}
+
+function rContact(){
+  document.getElementById('contactEl').innerHTML=(db.contactInfo||'').split('\n').map(l=>`<div>${esc(l)||'&nbsp;'}</div>`).join('');
+}
+
+/* Admin lists */
+function rAdmScripts(){
+  const el=document.getElementById('adminScriptList');
+  if(!db.scripts.length){el.innerHTML='<p style="color:var(--muted);font-size:.72rem;font-family:var(--font-mono)">ยังไม่มี Scripts</p>';return}
+  el.innerHTML=db.scripts.map(s=>`
+    <div class="list-item">
+      <span class="list-item-name" title="${esc(s.name)}">${esc(s.name)}</span>
+      <div class="list-item-acts">
+        <button class="ico-btn" style="color:#f4a261" onclick="openEdit(${s.id})">✏️</button>
+        <button class="ico-btn" style="color:var(--accent)" onclick="confirmDel('script',${s.id})">🗑</button>
+      </div>
+    </div>`).join('');
+}
+
+function rAdmCats(){
+  const el=document.getElementById('adminCatList');
+  if(!db.categories.length){el.innerHTML='<p style="color:var(--muted);font-size:.72rem;font-family:var(--font-mono)">ยังไม่มีหมวดหมู่</p>';return}
+  el.innerHTML=db.categories.map(c=>`
+    <div class="list-item">
+      <span class="list-item-name">${esc(c.icon)} ${esc(c.name)}</span>
+      <button class="ico-btn" style="color:var(--accent)" onclick="confirmDel('cat',${c.id})">🗑</button>
+    </div>`).join('');
+}
+
+function rAdmCh(){
+  const el=document.getElementById('adminChList');
+  if(!db.channels.length){el.innerHTML='<p style="color:var(--muted);font-size:.72rem;font-family:var(--font-mono)">ยังไม่มี Channel</p>';return}
+  el.innerHTML=db.channels.map(c=>`
+    <div class="list-item">
+      <span class="list-item-name">${esc(c.icon)} ${esc(c.name)} (${esc(c.subs)})</span>
+      <button class="ico-btn" style="color:var(--accent)" onclick="confirmDel('ch',${c.id})">🗑</button>
+    </div>`).join('');
+}
+
+function popCatSel(){
+  const opts=db.categories.map(c=>`<option value="${c.id}">${esc(c.icon)} ${esc(c.name)}</option>`).join('');
+  ['ns_cat','edit_cat'].forEach(id=>{const el=document.getElementById(id);if(el)el.innerHTML=opts});
+}
+
+function syncForm(){
+  const sn=document.getElementById('cfg_siteName');
+  const ct=document.getElementById('cfg_contact');
+  if(sn)sn.value=db.siteName||'';
+  if(ct)ct.value=db.contactInfo||'';
+}
+
+function rColors(){
+  document.getElementById('colorGrid').innerHTML=PRESETS.map(c=>`
+    <div class="cswatch${db.accentColor===c?' sel':''}" style="background:${c}" onclick="pickColor('${c}')" title="${c}"></div>`).join('');
+}
+
+function rFonts(){
+  document.getElementById('fontGrid').innerHTML=FONTS.map(f=>`
+    <button class="font-btn${db.fontKey===f.key?' sel':''}" onclick="pickFont('${f.key}')">${f.label}</button>`).join('');
+}
+
+/* ─── SCRIPT MODAL ─── */
+function openScript(id){
+  id=parseInt(id);if(isNaN(id))return;
+  const s=db.scripts.find(x=>x.id===id);if(!s)return;
+  const cat=db.categories.find(c=>c.id===s.catId);
+  document.getElementById('mTitle').textContent=s.name;
+  document.getElementById('mSub').textContent=(cat?cat.icon+' '+cat.name:'')+(s.lang?' • '+s.lang:'');
+  document.getElementById('mDesc').textContent=s.desc||'';
+  document.getElementById('mCode').textContent=s.code||'';
+  document.getElementById('mTags').innerHTML=(s.tags||[]).map(t=>`<span class="tag">#${esc(t)}</span>`).join('');
+  openOv('scriptModal');
+  s.views=(s.views||0)+1;
+  saveDB();
+}
+function closeScriptModal(){closeOv('scriptModal')}
+function copyCode(){
+  const code=document.getElementById('mCode').textContent;
+  if(navigator.clipboard){
+    navigator.clipboard.writeText(code).then(()=>toast('✅ คัดลอก Code แล้ว!')).catch(()=>fallbackCopy(code));
+  }else{fallbackCopy(code)}
+}
+function fallbackCopy(txt){
+  const t=document.createElement('textarea');t.value=txt;t.style.cssText='position:fixed;opacity:0;top:0;left:0';
+  document.body.appendChild(t);t.select();
+  try{document.execCommand('copy');toast('✅ คัดลอก Code แล้ว!')}catch(e){toast('❌ คัดลอกไม่สำเร็จ')}
+  document.body.removeChild(t);
+}
+
+/* ─── ADMIN AUTH ─── */
+function openAdmin(){
+  openOv('adminModal');
+  if(!isAdmin){
+    document.getElementById('adminLock').style.display='flex';
+    document.getElementById('adminPanel').style.display='none';
+    clearPins();
+  }
+}
+function closeAdmin(){closeOv('adminModal')}
+function adminLogout(){isAdmin=false;closeAdmin()}
+
+function clearPins(){
+  ['p1','p2','p3','p4'].forEach(id=>{const e=document.getElementById(id);if(e)e.value=''});
+  const pe=document.getElementById('pinErr');if(pe)pe.textContent='';
+}
+
+function pinNav(el,nid){
+  if(el.value.length===1){const n=document.getElementById(nid);if(n){n.value='';n.focus()}}
+}
+function pinBack(e,el,pid){
+  if(e.key==='Backspace'&&!el.value&&pid)document.getElementById(pid).focus();
+}
+
+function checkPin(){
+  const now=Date.now();
+  if(!rlOk()){const s=Math.ceil((RL.lock-now)/1000);document.getElementById('pinErr').textContent=`🔒 ล็อก ${s}s`;return}
+  const pin=['p1','p2','p3','p4'].map(id=>document.getElementById(id).value).join('');
+  if(pin===db.pin){
+    rlReset();isAdmin=true;
+    document.getElementById('adminLock').style.display='none';
+    document.getElementById('adminPanel').style.display='block';
+    rAdmScripts();rAdmCats();rAdmCh();popCatSel();syncForm();rColors();rFonts();
+  }else{
+    const locked=rlFail();clearPins();document.getElementById('p1').focus();
+    document.getElementById('pinErr').textContent=locked?'🔒 ล็อก 60 วินาที':(`❌ PIN ไม่ถูกต้อง (${RL.a}/5)`);
+  }
+}
+
+/* ─── CRUD SCRIPTS ─── */
+function adminAddScript(){
+  if(!db.categories.length){toast('⚠️ กรุณาเพิ่มหมวดหมู่ก่อน');return}
+  const name=sText(document.getElementById('ns_name').value,120);
+  const catId=parseInt(document.getElementById('ns_cat').value);
+  const badge=['free','hot','new'].includes(document.getElementById('ns_badge').value)?document.getElementById('ns_badge').value:'free';
+  const lang=sText(document.getElementById('ns_lang').value,50)||'Unknown';
+  const desc=sText(document.getElementById('ns_desc').value,300);
+  const tagsRaw=sText(document.getElementById('ns_tags').value,200);
+  const code=document.getElementById('ns_code').value.slice(0,50000);
+  if(!name){toast('⚠️ กรุณากรอกชื่อ Script');return}
+  if(!code.trim()){toast('⚠️ กรุณากรอก Code');return}
+  if(!db.categories.find(c=>c.id===catId)){toast('⚠️ หมวดหมู่ไม่ถูกต้อง');return}
+  const tags=tagsRaw?tagsRaw.split(',').map(t=>t.trim().slice(0,30)).filter(Boolean):[];
+  db.scripts.push({id:nid(db.scripts),name,catId,badge,lang,desc,tags,views:0,code});
+  saveDB();renderAll();
+  ['ns_name','ns_desc','ns_tags','ns_code','ns_lang'].forEach(id=>document.getElementById(id).value='');
+  toast('✅ เพิ่ม Script สำเร็จ!');
+}
+
+function openEdit(id){
+  id=parseInt(id);const s=db.scripts.find(x=>x.id===id);if(!s)return;
+  document.getElementById('edit_id').value=id;
+  document.getElementById('edit_name').value=s.name;
+  document.getElementById('edit_desc').value=s.desc||'';
+  document.getElementById('edit_lang').value=s.lang||'';
+  document.getElementById('edit_tags').value=(s.tags||[]).join(', ');
+  document.getElementById('edit_code').value=s.code||'';
+  document.getElementById('edit_badge').value=s.badge||'free';
+  popCatSel();
+  document.getElementById('edit_cat').value=s.catId;
+  openOv('editModal');
+}
+function closeEdit(){closeOv('editModal')}
+
+function adminSaveEdit(){
+  const id=parseInt(document.getElementById('edit_id').value);
+  const s=db.scripts.find(x=>x.id===id);if(!s)return;
+  const name=sText(document.getElementById('edit_name').value,120);
+  if(!name){toast('⚠️ กรุณากรอกชื่อ');return}
+  s.name=name;
+  s.desc=sText(document.getElementById('edit_desc').value,300);
+  s.lang=sText(document.getElementById('edit_lang').value,50)||'Unknown';
+  s.tags=document.getElementById('edit_tags').value.split(',').map(t=>t.trim().slice(0,30)).filter(Boolean);
+  s.code=document.getElementById('edit_code').value.slice(0,50000);
+  const b=document.getElementById('edit_badge').value;
+  s.badge=['free','hot','new'].includes(b)?b:'free';
+  const catId=parseInt(document.getElementById('edit_cat').value);
+  if(db.categories.find(c=>c.id===catId))s.catId=catId;
+  saveDB();renderAll();closeEdit();toast('✅ แก้ไข Script สำเร็จ!');
+}
+
+/* ─── CRUD CATS ─── */
+function adminAddCat(){
+  const name=sText(document.getElementById('nc_name').value,60);
+  const icon=sText(document.getElementById('nc_icon').value,8)||'📄';
+  if(!name){toast('⚠️ กรุณากรอกชื่อหมวดหมู่');return}
+  db.categories.push({id:nid(db.categories),name,icon});
+  saveDB();renderAll();
+  ['nc_name','nc_icon'].forEach(id=>document.getElementById(id).value='');
+  toast('✅ เพิ่มหมวดหมู่สำเร็จ!');
+}
+
+/* ─── CRUD CHANNELS ─── */
+function adminAddChannel(){
+  const name=sText(document.getElementById('nch_name').value,80);
+  const icon=sText(document.getElementById('nch_icon').value,8)||'🔗';
+  const url=sUrl(document.getElementById('nch_url').value);
+  const subs=sText(document.getElementById('nch_subs').value,30)||'0';
+  if(!name){toast('⚠️ กรุณากรอกชื่อ Channel');return}
+  db.channels.push({id:nid(db.channels),name,icon,url,subs});
+  saveDB();renderAll();
+  ['nch_name','nch_icon','nch_url','nch_subs'].forEach(id=>document.getElementById(id).value='');
+  toast('✅ เพิ่ม Channel สำเร็จ!');
+}
+
+/* ─── CONFIRM DELETE ─── */
+let _del=null;
+function confirmDel(type,id){
+  _del={type,id};
+  const msgs={script:'ยืนยันลบ Script นี้?',cat:'ยืนยันลบหมวดหมู่นี้?\n(Scripts ในหมวดจะไม่มีหมวดหมู่)',ch:'ยืนยันลบ Channel นี้?'};
+  document.getElementById('confirmMsg').textContent=msgs[type]||'ยืนยันการลบ?';
+  document.getElementById('confirmOkBtn').onclick=execDel;
+  openOv('confirmOv');
+}
+function closeConfirm(){closeOv('confirmOv');_del=null}
+function execDel(){
+  if(!_del)return;
+  const {type,id}=_del;
+  if(type==='script'){db.scripts=db.scripts.filter(s=>s.id!==id);toast('🗑 ลบ Script แล้ว')}
+  else if(type==='cat'){
+    db.categories=db.categories.filter(c=>c.id!==id);
+    db.scripts.forEach(s=>{if(s.catId===id)s.catId=0});
+    toast('🗑 ลบหมวดหมู่แล้ว');
+    if(curCat===id)curCat=null;
+  }
+  else if(type==='ch'){db.channels=db.channels.filter(c=>c.id!==id);toast('🗑 ลบ Channel แล้ว')}
+  saveDB();renderAll();closeConfirm();
+}
+
+/* ─── THEME ─── */
+function pickColor(hex){if(!isHex(hex))return;db.accentColor=hex;saveDB();applyTheme();rColors()}
+function applyCustomColor(){
+  const v=document.getElementById('customColor').value.trim();
+  if(!isHex(v)){toast('❌ HEX ไม่ถูกต้อง เช่น #ff0055');return}
+  pickColor(v);toast('✅ เปลี่ยนสีแล้ว');
+}
+function pickFont(key){
+  if(!FONTS.find(f=>f.key===key))return;
+  db.fontKey=key;saveDB();applyTheme();rFonts();toast('✅ เปลี่ยนฟ้อนต์แล้ว');
+}
+
+/* ─── SETTINGS ─── */
+function adminSaveSettings(){
+  const name=sText(document.getElementById('cfg_siteName').value,60)||'Ryan';
+  const contact=document.getElementById('cfg_contact').value.slice(0,1000);
+  const pinInput=document.getElementById('cfg_pin').value.trim();
+  db.siteName=name;db.contactInfo=contact;
+  if(pinInput){
+    if(!isPin(pinInput)){toast('❌ PIN ต้องเป็นตัวเลข 4 หลัก');return}
+    db.pin=pinInput;
+    document.getElementById('cfg_pin').value='';
+    toast('✅ บันทึก + เปลี่ยน PIN แล้ว');
+  }else{toast('✅ บันทึกการตั้งค่าแล้ว')}
+  saveDB();renderAll();
+}
+
+/* ─── OVERLAY HELPERS ─── */
+function openOv(id){document.getElementById(id).classList.add('open');document.body.classList.add('locked')}
+function closeOv(id){
+  document.getElementById(id).classList.remove('open');
+  if(!document.querySelector('.ov.open'))document.body.classList.remove('locked');
+}
+
+document.querySelectorAll('.ov').forEach(o=>{
+  o.addEventListener('click',function(e){
+    if(e.target!==this)return;
+    if(this.id==='scriptModal')closeScriptModal();
+    else if(this.id==='adminModal')closeAdmin();
+    else if(this.id==='editModal')closeEdit();
+    else if(this.id==='confirmOv')closeConfirm();
+  });
+});
+
+document.addEventListener('keydown',function(e){
+  if(e.key!=='Escape')return;
+  if(document.getElementById('editModal').classList.contains('open')){closeEdit();return}
+  if(document.getElementById('confirmOv').classList.contains('open')){closeConfirm();return}
+  if(document.getElementById('adminModal').classList.contains('open')){closeAdmin();return}
+  if(document.getElementById('scriptModal').classList.contains('open')){closeScriptModal();return}
+});
+
+/* ─── MOBILE MENU ─── */
+function toggleMenu(){document.getElementById('mobMenu').classList.toggle('open')}
+function closeMenu(){document.getElementById('mobMenu').classList.remove('open')}
+document.addEventListener('click',function(e){
+  const menu=document.getElementById('mobMenu');
+  const btn=document.getElementById('hamBtn');
+  if(menu.classList.contains('open')&&!menu.contains(e.target)&&!btn.contains(e.target))closeMenu();
+});
+
+/* ─── TOAST ─── */
+let _tt=null;
+function toast(msg){
+  const t=document.getElementById('toast');
+  t.textContent=String(msg).slice(0,100);
+  t.classList.add('show');
+  if(_tt)clearTimeout(_tt);
+  _tt=setTimeout(()=>t.classList.remove('show'),2800);
+}
+
+/* ─── INIT ─── */
+renderAll();
+</script>
+</body>
